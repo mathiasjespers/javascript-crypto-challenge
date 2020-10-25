@@ -3,8 +3,10 @@ const nacl = require('libsodium-wrappers');
 module.exports = async(key) => {
     await nacl.ready;
 
-    if(key == null) throw 'no key';
+    // key isset check
+    if(key == null || typeof key == undefined) throw 'no key';
 
+    // freeze object to disable later tampering of the object
     return Object.freeze({
         decrypt: (ciphertext, nonce) => {
             (async() => await nacl.ready)();
