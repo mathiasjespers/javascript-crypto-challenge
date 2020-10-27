@@ -8,7 +8,7 @@ describe('SecureSessionPeer', () => {
   beforeAll(async () => {
     peer = await SecureSessionPeer()
   })
-  xit('can be instantiated', () => {
+  it('can be instantiated', () => {
     expect(peer).toBeDefined()
   })
   describe('has a public key', () => {
