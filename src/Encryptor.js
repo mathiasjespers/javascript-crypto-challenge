@@ -8,9 +8,14 @@ module.exports = async(key) => {
 
     // freeze object to disable later tampering of the object
     return Object.freeze({
-        encrypt: (msg, nonce) => {
-            if(!msg || !nonce) throw 'Invalid arguments';
-            return nacl.crypto_secretbox_easy(msg, nonce, key)
+        key: key,
+        encrypt: (msg) => {
+        const nonce = nacl.randombytes_buf(nacl.crypto_secretbox_NONCEBYTES);
+        const ciphertext = nacl.crypto_secretbox_easy(msg, nonce, key)
+            return {
+                nonce: nonce,
+                ciphertext: ciphertext
+            }
         }
     });
 }
